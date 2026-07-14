@@ -81,3 +81,20 @@ Frame breakdown: frame 1 = 5+5 (spare) + next roll (3) = 13. Frame 2 = 3+0 = 3. 
 - Strike bonus logic (two-roll lookahead) — later cycle.
 - 10th-frame special handling — later cycle.
 - Multiple spares / perfect game — later cycles.
+
+---
+
+## Cycle 4: One strike
+
+**Goal:** A strike in frame 1 (roll 10), then a 3, then a 4, then sixteen gutter rolls (19 rolls total) -> `score() == 24`.
+
+Frame breakdown: frame 1 = 10 (strike) + next two rolls (3+4) = 17. Frame 2 = 3+4 = 7. Frames 3-10 = 0. Total = 24.
+
+**In scope:**
+- One gtest test encoding the roll sequence above and asserting `score() == 24`.
+- Real strike-bonus scoring in `Game::score()`: detect a strike (single roll of 10) and add the next two rolls as bonus, advancing only one roll for that frame instead of two.
+
+**Explicitly NOT in scope yet:**
+- 10th-frame special handling — later cycle.
+- Multiple/consecutive strikes, perfect game — later cycle.
+- Mixed strike+spare sequences beyond the single scenario above.
