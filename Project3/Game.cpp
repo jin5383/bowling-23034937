@@ -5,23 +5,31 @@ void Game::roll(int pins)
     rolls.push_back(pins);
 }
 
+namespace
+{
+    constexpr int kPinsPerFrame = 10;
+}
+
 int Game::score()
 {
     int total = 0;
     size_t rollIndex = 0;
     for (int frame = 0; frame < 10; ++frame)
     {
-        int first = rolls[rollIndex];
-        if (first == 10)
+        int firstRoll = rolls[rollIndex];
+        if (firstRoll == kPinsPerFrame)
         {
-            total += first + rolls[rollIndex + 1] + rolls[rollIndex + 2];
+            // Strike: frame is a single roll worth 10 + next two rolls.
+            total += firstRoll + rolls[rollIndex + 1] + rolls[rollIndex + 2];
             rollIndex += 1;
             continue;
         }
-        int second = rolls[rollIndex + 1];
-        total += first + second;
-        if (first + second == 10)
+
+        int secondRoll = rolls[rollIndex + 1];
+        total += firstRoll + secondRoll;
+        if (firstRoll + secondRoll == kPinsPerFrame)
         {
+            // Spare: frame's two rolls plus the next single roll.
             total += rolls[rollIndex + 2];
         }
         rollIndex += 2;
