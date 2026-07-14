@@ -47,6 +47,16 @@ TEST(GameTest, OneStrike)
     EXPECT_EQ(24, game.score());
 }
 
+TEST(GameTest, PerfectGameScoresThreeHundred)
+{
+    Game game;
+    for (int i = 0; i < 12; ++i)
+    {
+        game.roll(10);
+    }
+    EXPECT_EQ(300, game.score());
+}
+
 int main(int argc, char** argv)
 {
     testing::InitGoogleTest(&argc, argv);
