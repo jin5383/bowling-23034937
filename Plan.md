@@ -48,3 +48,36 @@ the final total from `score()`.
 - Spare, strike, and perfect-game tests (later cycles).
 - Input validation, per-frame score reporting (explicitly out of scope per the kata description).
 - Linking gtest_main — this project builds its own `main()` calling `InitGoogleTest` + `RUN_ALL_TESTS()`.
+
+---
+
+## Cycle 2: All ones
+
+**Goal:** 20 rolls of 1 pin each -> `score() == 20`.
+
+**In scope:**
+- One gtest test: roll 1, twenty times; assert `score() == 20`.
+- Confirm the existing `Game::score()` (running total of all rolls) already satisfies this, or extend it minimally if it doesn't.
+
+**Explicitly NOT in scope yet:**
+- Spare/strike bonus logic, frame boundaries, 10th-frame handling (later cycles).
+- Any change to the public API.
+
+**Outcome:** Test passed immediately against the existing running-total `score()` — no code change needed. Kept as a coverage checkpoint before spare/strike logic forces real frame-based scoring in Cycle 3.
+
+---
+
+## Cycle 3: One spare
+
+**Goal:** A spare in frame 1 (5, 5), then a 3, then seventeen gutter rolls (20 rolls total) -> `score() == 16`.
+
+Frame breakdown: frame 1 = 5+5 (spare) + next roll (3) = 13. Frame 2 = 3+0 = 3. Frames 3-10 = 0. Total = 16.
+
+**In scope:**
+- One gtest test encoding the roll sequence above and asserting `score() == 16`.
+- Real frame-based scoring in `Game::score()`: iterate rolls in frames of two, detect a spare (two rolls summing to 10) and add the next single roll as bonus.
+
+**Explicitly NOT in scope yet:**
+- Strike bonus logic (two-roll lookahead) — later cycle.
+- 10th-frame special handling — later cycle.
+- Multiple spares / perfect game — later cycles.

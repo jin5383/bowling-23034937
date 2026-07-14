@@ -1,0 +1,7 @@
+.vs/
+x64/
+Project3/x64/
+Project3/Project3/
+packages/
+*.user
+.mcp.json

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 class Game
 {
 public:
@@ -7,5 +9,5 @@ public:
     int score();
 
 private:
-    int total = 0;
+    std::vector<int> rolls;
 };
