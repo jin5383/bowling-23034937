@@ -12,6 +12,12 @@ int Game::score()
     for (int frame = 0; frame < 10; ++frame)
     {
         int first = rolls[rollIndex];
+        if (first == 10)
+        {
+            total += first + rolls[rollIndex + 1] + rolls[rollIndex + 2];
+            rollIndex += 1;
+            continue;
+        }
         int second = rolls[rollIndex + 1];
         total += first + second;
         if (first + second == 10)
